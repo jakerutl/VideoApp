@@ -3,6 +3,11 @@ module.exports = function(grunt) {
     pkg : grunt.file.readJSON('package.json'), // read all the packages inside readJSON
 
     //write the concat task
+
+        jshint: {
+            all: ['Gruntfile.js']
+        },
+
     sass : {
       dist: {
         files: {
@@ -36,15 +41,6 @@ module.exports = function(grunt) {
       }
     },
 
-    jshint: {
-   files: ['Gruntfile.js', 'src/**/*.js', 'test/**/*.js'],
-   options: {
-     globals: {
-       jQuery: true
-     }
-   }
- },
-
     uglify : {
       build : {
         src: 'prod/production.js',
@@ -57,6 +53,7 @@ module.exports = function(grunt) {
         files: ['sass/*.scss'],
         tasks: ['sass'],
       },
+
       scripts : {
         files : ['js/main.js', 'js/modules/*.js'],
         tasks: ['concat','uglify', 'jshint'],
@@ -72,8 +69,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-imagemin');
   grunt.loadNpmTasks('grunt-contrib-sass');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
 
-  grunt.registerTask('default', ['concat', 'uglify', 'jshint', 'sass']);
+  grunt.registerTask('default', ['concat', 'uglify', 'sass', 'jshint']);
   grunt.registerTask('watchFiles', ['watch']);
 
 };
